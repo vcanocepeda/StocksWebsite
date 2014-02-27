@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition template="basicTemplate.xhtml">
+
+		<ui:define name="pageCSSElements"></ui:define>
+
+		<ui:define name="pageScriptElements">
+			<script type="text/javascript">
+			<!--
+				function openHelp() {
+					window.open('disgregationsHelp.html');
+				}
+			//-->
+			</script>
+		</ui:define>
+
+		<ui:define name="pageWellcomePhrase">
+			<div style="margin-right: 60px; float: right;">
+				<h:outputText value="#{i18nBundle.Wellcome}" />
+				<p:spacer width="4" />
+				<h:outputText value="#{disgregationListModel.userName}" />
+			</div>
+		</ui:define>
+
+		<ui:define name="pageTrail">
+			<h:outputLink value="pageTrail">Buscador</h:outputLink>
+		</ui:define>
+
+		<ui:define name="centerContent">
+			<p:tabView id="tabsContainer" activeIndex="2"
+				widgetVar="tabsContainer">
+				<p:tab id="homeTab" title="#{i18nBundle.homeTabTitle}">
+				</p:tab>
+				<p:tab id="queriesTab" title="#{i18nBundle.queriesTabTitle}">
+				</p:tab>
+
+				<p:tab id="configurationTab"
+					title="#{i18nBundle.configurationTabTitle}">
+					<p:layout id="configurationTabLayout"
+						styleClass="configurationLayout" style="min-height: 560px;">
+
+						<p:layoutUnit id="centerLayoutUnit" position="center">
+							<h:form>
+								<p:dataTable id="paginatedList" var="stock"
+									value="#{CMRStockController.stockList}" rows="10"
+									emptyMessage="There is no records to show">
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Name" />
+										</f:facet>
+										<h:outputText value="#{stock.name}" />
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Code" />
+										</f:facet>
+										<h:outputText value="#{stock.code}" />
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Market" />
+										</f:facet>
+										<h:outputText value="#{stock.market.code}" />
+									</p:column>
+								</p:dataTable>
+								<p:dataTable id="paginatedListMarkets" var="market"
+									value="#{CMRStockController.marketList}" rows="10"
+									emptyMessage="There is no records to show">
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="Code" />
+										</f:facet>
+										<h:outputText value="#{market.code}" />
+									</p:column>
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="City" />
+										</f:facet>
+										<h:outputText value="#{market.city}" />
+									</p:column>
+
+								</p:dataTable>
+								<p:spacer height="12px" width="100%" />
+								<p:commandButton id="createStockButton" value="Create Stock"
+									action="#{CMRStockController.navigateToCreateStock}"
+									icon="ui-icon-plus" ajax="false" />
+								<p:spacer height="12px" width="100%" />
+								<p:commandButton id="createMarketButton" value="Create Market"
+									action="#{CMRMarketController.navigateToCreateMarket}"
+									icon="ui-icon-plus" ajax="false" />
+							</h:form>
+
+						</p:layoutUnit>
+					</p:layout>
+				</p:tab>
+
+				<p:tab id="administrationTab"
+					title="#{i18nBundle.administrationTabTitle}">
+				</p:tab>
+			</p:tabView>
+		</ui:define>
+
+	</ui:composition>
+</body>
+</html>

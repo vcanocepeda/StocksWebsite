@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><h:outputText
+			value="#{i18nBundle.basicTemplate_applicationTitle}" /></title>
+
+	<!-- style sheets -->
+	<h:outputStylesheet name="css/basic.css" />
+	<ui:insert name="pageCSSElements"></ui:insert>
+
+	<!-- javascript files -->
+	<h:outputScript name="js/basic.js" />
+	<h:outputScript name="js/primefaces_translations.js" />
+	<ui:insert name="pageScriptElements"></ui:insert>
+</h:head>
+
+<h:body>
+	<p:layout id="mainLayout" fullPage="true">
+
+		<p:layoutUnit id="northLayoutUnit" position="north"
+			style="min-height: 120px;">
+			<h:panelGrid style="width: 100%;" columns="2">
+				<h:column>
+					<h:graphicImage name="img/logo_banco_santander.gif" />
+				</h:column>
+				<h:column>
+					<h:outputText style="float: right; font-size: 32px"
+						value="#{i18nBundle.basicTemplate_applicationName}" />
+				</h:column>
+				<h:column>
+					<ui:insert name="pageTrail" />
+				</h:column>
+				<h:column>
+					<h:outputLink style="float: right;" value="login.html">
+						<h:graphicImage name="img/logout_24x24.png"
+							title="#{i18nBundle.logout}" />
+					</h:outputLink>
+					<h:outputLink style="float: right; margin-right: 12px"
+						onclick="openHelp();">
+						<h:graphicImage name="img/help_24x24.png"
+							title="#{i18nBundle.openHelp}" />
+					</h:outputLink>
+					<p:spacer width="10px" />
+					<ui:insert name="pageWellcomePhrase" />
+				</h:column>
+			</h:panelGrid>
+		</p:layoutUnit>
+
+		<p:layoutUnit id="centerLayoutUnit" position="center"
+			style="min-height: 600px; margin-top: 0px;">
+			<ui:insert name="centerContent"></ui:insert>
+		</p:layoutUnit>
+
+		<p:layoutUnit id="southLayoutUnit" position="south"
+			style="min-height: 20px; text-align: center; margin-top: 0px;">
+			<h:outputText value="#{i18nBundle.basicTemplate_copyright}" />
+      &#169;
+      <h:outputLink
+				onclick="openBrowserWindow('http://www.comunytek.com');">
+				<h:outputText value="#{i18nBundle.comunytek_consultores}" />
+			</h:outputLink>
+		</p:layoutUnit>
+
+	</p:layout>
+
+</h:body>
+
+</html>
