@@ -17,7 +17,7 @@ public class Stock
   private String code = "";
   private String name = "";
   private Market market = null;
-  private Integer idmarket;
+//  private Integer idmarket;
   
   public Stock() {}
   

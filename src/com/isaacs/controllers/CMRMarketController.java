@@ -2,7 +2,6 @@ package com.isaacs.controllers;
 
 import com.isaacs.dao.impl.MarketDaoHibernateImpl;
 import com.isaacs.model.Market;
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
