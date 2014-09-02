@@ -1,8 +1,6 @@
 package com.isaacs.dao.impl;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -10,10 +8,8 @@ import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-//import javax.ws.rs.ext.
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -115,7 +111,7 @@ public class MarketDaoRestXmlImpl implements Serializable, MarketDao {
 				.request(MediaType.APPLICATION_XML).get(listmarkets);
 		
 		return markets;
-
+	}
 /* We have to try here with a List<Market>		
 		Response response = client.target(url)
 				.request(MediaType.APPLICATION_XML).get();
@@ -132,7 +128,6 @@ public class MarketDaoRestXmlImpl implements Serializable, MarketDao {
 		Response response = target.request().post(Entity.form(form));
 		assert response.getStatus() == 200;
 		Order order = response.readEntity(Order.class); */
-	}
 
 	/*
 	 * Jersey request String uri = "http://localhost:8080/jd/rest/emp/getEmp";
