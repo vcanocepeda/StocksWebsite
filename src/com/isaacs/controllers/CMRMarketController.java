@@ -42,6 +42,7 @@ public class CMRMarketController
   
   public List<Market> getMarketList()
   {
+	// return this.marketDaoRest.getMarketList();
     return this.marketDao.getMarketList();
   }
   
