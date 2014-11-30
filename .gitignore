@@ -1,0 +1,8 @@
+/build
+/.git
+/logs
+/.settings
+/bin
+/logs
+/.classpath
+/src/log4j.properties
