@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition template="../basicTemplate.xhtml">
+
+		<ui:define name="pageCSSElements"></ui:define>
+
+		<ui:define name="pageScriptElements">
+			<script type="text/javascript">
+			<!--
+				function openHelp() {
+					window.open('disgregationsHelp.html');
+				}
+			//-->
+			</script>
+		</ui:define>
+
+		<ui:define name="pageWelcomePhrase">
+			<div style="margin-right: 60px; float: right;">
+				<h:outputText value="#{i18nBundle.Welcome}" />
+				<p:spacer width="4" />
+				<h:outputText value="Username" />
+			</div>
+		</ui:define>
+
+		<ui:define name="pageTrail">
+			<h:outputLink value="pageTrail">Buscador</h:outputLink>
+		</ui:define>
+
+		<ui:define name="centerContent">
+			<p:tabView id="tabsContainer" activeIndex="2" widgetVar="tabsContainer">
+				<p:tab id="homeTab" title="#{i18nBundle.homeTabTitle}">
+				</p:tab>
+				
+				<p:tab id="marketTab" title="#{i18nBundle.marketsTabTitle}">
+				
+				<p:layout id="marketTabLayout"
+						styleClass="configurationLayout" style="min-height: 560px;">
+            
+            <p:layoutUnit id="centerLayoutUnit" position="center">
+              <h:outputText value="#{i18nBundle.modifyMarket_title}" style="font-size: 24px;"/>
+              
+   <!--       <p:dialog header="#{i18nBundle.systemMessage}"
+                        modal="true"
+                        resizable="false"
+                        rendered="#{modifyDisgregationModel.nonExistingDisgregation}"
+                        visible="#{modifyDisgregationModel.nonExistingDisgregation}" appendToBody="true">
+                <h:panelGrid columns="1">
+                  <h:column>
+                    <h:outputText value="#{i18nBundle.modifyDisgregation_nonExistingDisgregation}#{modifyDisgregationModel.id}" />
+                  </h:column>
+                  <h:column>
+                    <h:outputText value="#{i18nBundle.automaticRedirection} createDisgregation.html" />
+                  </h:column>
+                </h:panelGrid>
+                <script type="text/javascript">
+                  function redirectToCreateDisgregation() {
+                    changeDocumentLocationHref('../createDisgregation.html')
+                  }
+                  setTimeout('redirectToCreateDisgregation()', 5000);
+                </script>
+              </p:dialog> -->
+              
+              <h:form id="modifyMarketForm" style="width=100%">
+                <h:inputHidden id="marketId" value="#{CMRMarketController.marketModel.id}" />
+                <p:spacer height="12px" width="100%" />
+                <p:focus for="codeField" />
+                <p:messages id="messagesDiv" autoUpdate="true" />
+                
+                <p:fieldset id="mainDataFieldset" legend="#{i18nBundle.modifyMarket_mainDataFieldset_legend}" toggleable="true">
+                  <h:panelGrid columns="2">
+                    <h:column>
+                      <h:outputLabel value="#{i18nBundle.modifyMarket_codeField_label}" style="margin-right: 12px;">:</h:outputLabel>
+                    </h:column>
+                    <h:column>
+                      <p:inputText id="codeField"
+                                   label="#{i18nBundle.modifyMarket_codeField_label}"
+                                   value="#{CMRMarketController.marketModel.code}" size="40" maxlength="32" />
+                    </h:column>
+                    <h:column>
+                      <h:outputLabel value="#{i18nBundle.modifyMarket_cityField_label}" style="margin-right: 12px;" >:</h:outputLabel>
+                    </h:column>
+                    <h:column>
+                      <p:inputTextarea id="cityField"
+                                       label="#{i18nBundle.modifyMarket_cityField_label}"
+                                       value="#{CMRMarketController.marketModel.city}" rows="3" cols="144" maxlength="256" />
+                    </h:column>
+                  </h:panelGrid>
+                </p:fieldset>
+                               
+                <p:spacer height="12px" width="100%" />
+                <p:commandButton id="acceptButton"
+                                 value="#{i18nBundle.modifyMarket_acceptButton_value}"
+                                 icon="ui-icon-check" update="modifyMarketForm"/>
+                <p:spacer width="12px" />
+                <p:commandButton id="cancelButton"
+                                 immediate="true"
+                                 value="#{i18nBundle.modifyMarket_cancelButton_value}"
+                                 icon="ui-icon-arrowreturnthick-1-s" />
+                <p:spacer width="12px" />
+                <p:commandButton id="deleteButton"
+                                 value="#{i18nBundle.modifyMarket_deleteButton_value}"
+                                 icon="ui-icon-trash" type="button" />
+<!--                <p:confirmDialog severity="alert"
+                                 rendered="#{modifyDisgregationModel.existingParameterDescriptions eq false}"
+                                 widgetVar="confirmationDialog"
+                                 header="#{i18nBundle.userAction}"
+                                 message="#{i18nBundle.leftQuestionMark}#{i18nBundle.deleteConfirmDialogMessage}#{modifyDisgregationModel.name}#{i18nBundle.rightQuestionMark}"
+                                 appendToBody="true">
+                    <p:commandButton id="yesButton" value="#{i18nBundle.yes}" action="#{modifyDisgregationController.delete}" />
+                    <p:commandButton id="noButton" value="#{i18nBundle.no}" onclick="confirmationDialog.hide()" type="button" />
+                </p:confirmDialog>
+                <p:commandButton id="existingParameterDescriptionsDeleteButton"
+                                 rendered="#{modifyDisgregationModel.existingParameterDescriptions eq true}"
+                                 value="#{i18nBundle.modifyRole_deleteButton_value}"
+                                 onclick="existingParameterDescriptionsDialog.show()" icon="ui-icon-trash" type="button" />
+                <p:confirmDialog severity="alert"
+                                 rendered="#{modifyDisgregationModel.existingParameterDescriptions eq true}"
+                                 widgetVar="existingParameterDescriptionsDialog"
+                                 header="#{i18nBundle.userAction}"
+                                 message="#{i18nBundle.modifyDisgregation_existingParameterDescriptionsAdvise}#{modifyDisgregationModel.name} #{i18nBundle.leftQuestionMark}#{i18nBundle.deleteConfirmDialogMessage}#{modifyDisgregationModel.name}#{i18nBundle.rightQuestionMark}"
+                                 appendToBody="true">
+                    <p:commandButton id="existingYesButton" value="#{i18nBundle.yes}" action="#{modifyDisgregationController.delete}" />
+                    <p:commandButton id="existingNoButton" value="#{i18nBundle.no}" onclick="confirmationDialog.hide()" type="button" />
+                </p:confirmDialog> -->
+              </h:form>
+            </p:layoutUnit>
+            
+          </p:layout>  
+        </p:tab>
+        <p:tab id="stocksTab" title="#{i18nBundle.stocksTabTitle}"> </p:tab>     
+        <p:tab id="pricesTab" title="#{i18nBundle.pricesTabTitle}"> </p:tab>
+      </p:tabView>
+    </ui:define>
+
+    
+  </ui:composition>
+</body>
+</html>

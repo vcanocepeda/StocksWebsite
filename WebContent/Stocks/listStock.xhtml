@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <body>
-	<ui:composition template="basicTemplate.xhtml">
+	<ui:composition template="../basicTemplate.xhtml">
 
 		<ui:define name="pageCSSElements"></ui:define>
 
@@ -15,7 +15,6 @@
 				function openHelp() {
 					window.open('disgregationsHelp.html');
 				}
-
 			//-->
 			</script>
 		</ui:define>
@@ -31,7 +30,7 @@
 		<ui:define name="pageTrail">
 			<h:outputLink value="pageTrail">Buscador</h:outputLink>
 		</ui:define>
-		
+		<!--  -->
 		<ui:define name="centerContent">
 			<p:tabView id="tabsContainer" activeIndex="2" onTabShow="handleOnTabShow()" widgetVar="tabsContainer">
 				<p:tab id="homeTab" title="#{i18nBundle.homeTabTitle}">

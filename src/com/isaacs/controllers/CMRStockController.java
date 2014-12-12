@@ -51,8 +51,10 @@ public class CMRStockController
     return "/Stocks/createStock.xhtml";
   }
   
-  public String navigateToCreateMarket()
+/* 
+ * We need getStockFromId
+ * public String navigateToCreateMarket()
   {
     return "/Markets/createMarket.xhtml";
-  }
+  } */
 }

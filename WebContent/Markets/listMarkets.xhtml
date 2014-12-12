@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition template="../basicTemplate.xhtml">
+
+		<ui:define name="pageCSSElements"></ui:define>
+
+		<ui:define name="pageScriptElements">
+			<script type="text/javascript">
+			<!--
+				function openHelp() {
+					window.open('disgregationsHelp.html');
+				}
+			
+			//-->
+			</script>
+		</ui:define>
+
+		<ui:define name="pageWelcomePhrase">
+			<div style="margin-right: 60px; float: right;">
+				<h:outputText value="#{i18nBundle.Welcome}" />
+				<p:spacer width="4" />
+				<h:outputText value="Username" />
+			</div>
+		</ui:define>
+
+		<ui:define name="pageTrail">
+			<h:outputLink value="#{i18nBundle.marketList_pageTrail}"></h:outputLink>
+		</ui:define>
+
+		<ui:define name="centerContent">
+			<p:tabView id="tabsContainer" activeIndex="1" onTabShow="handleOnTabShow()" widgetVar="tabsContainer">
+				<p:ajax event="tabChange" />
+				<p:tab id="homeTab" title="#{i18nBundle.homeTabTitle}">
+				</p:tab>
+				
+				<p:tab id="marketTab" title="#{i18nBundle.marketsTabTitle}">
+				
+				<p:layout id="marketsTabLayout"
+						styleClass="configurationLayout" style="min-height: 560px;">
+
+				<p:layoutUnit id="centerLayoutUnit" position="center">
+					<h:form>					
+					<p:dataTable id="paginatedListMarkets" var="market"
+						value="#{CMRMarketController.marketModel.marketList}" rows="10"
+						emptyMessage="There is no records to show">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="#{i18nBundle.modifyMarket_codeField_label}" />
+							</f:facet>
+								<h:outputText value="#{market.code}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="City" />
+							</f:facet>
+								<h:outputText value="#{market.city}" />
+						</p:column>
+						<p:column style="text-align: center;">
+                  			<f:facet name="header">
+                  				<h:outputText value="#{i18nBundle.actionsColumn_Header}" />
+                  			</f:facet>                              
+                  				<h:outputLink id="modifyLink_#{market.code}" 
+                  				value="/Markets/modifyMarket.xhtml" style="margin-right: 8px;">
+                    			<f:param name="marketCode" value="#{market.code}" />
+                    			<h:graphicImage name="img/modify_24x24.png" title="#{i18nBundle.modify}" />
+                  				</h:outputLink>
+                  							
+                  				<h:outputLink id="deleteLink_#{market.id}" >			
+                   				<h:graphicImage name="img/delete_24x24.png" title="#{i18nBundle.delete}" />
+                  				</h:outputLink>
+                		</p:column>
+						</p:dataTable>
+						<p:spacer height="12px" width="100%" />
+						<p:panelGrid id="buttons" style="width: 50%; text-align: right;" columns="1">
+							<p:column>
+								<p:commandButton id="createMarketButton" value="Create Market"
+								action="#{CMRMarketController.navigateToCreateMarket}" icon="ui-icon-plus" ajax="false" />
+							</p:column>
+						</p:panelGrid>
+					</h:form>
+
+				</p:layoutUnit>
+			</p:layout>
+		</p:tab>
+		<p:tab id="stocksTab" title="#{i18nBundle.stocksTabTitle}"> </p:tab>
+		<p:tab id="pricesTab" title="#{i18nBundle.pricesTabTitle}"> </p:tab>
+		</p:tabView>
+		</ui:define>
+
+	</ui:composition>
+</body>
+</html>

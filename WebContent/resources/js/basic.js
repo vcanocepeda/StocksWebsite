@@ -127,15 +127,18 @@ function keepFilterFormOption()
  * TODO: send the user credentials in order to let server-side code to tell whether the request is authenticated 
  */
 function handleOnTabShow() {
-  var activeIndex = tabsContainer.getActiveIndex();
-  var map = new Object();
-  map[0] = 'home.html?clearSession=true';
-  map[1] = 'servicesUserQueryList.html?clearSession=true';
-  map[2] = 'disgregationList.html?clearSession=true';
-  map[3] = 'userList.html?clearSession=true';
-  window.location.href = window.location.protocol + "//" + window.location.host + "/" + "MetricsMonitor/" + map[activeIndex];
-  //window.location = map[activeIndex];
-}
+		//var activeIndex = tabsContainer.getActiveIndex();
+		var hiddenBox = $( "#tabsContainer" );
+	    var activeIndex = hiddenBox.getActiveIndex();
+		var map = new Object();
+		map[0] = 'index.xhtml';
+		map[1] = '/Stocks/listStock.xhtml';
+		map[2] = '/Markets/listMarket.xhtml';
+		map[3] = 'userList.html?clearSession=true';
+		//window.location.href = window.location.protocol + "//" + window.location.host + "/" + "StocksWebsite/" + map[activeIndex];
+		window.location.href = "http://localhost:8080/StocksWebsite/Stocks/listStock.xhtml";
+		//window.location = map[activeIndex];
+ }
 
 /**
  * This function performs redirection to the specified locationHref.

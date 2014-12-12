@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Properties;
+
 import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -73,7 +75,16 @@ public class MarketDaoHibernateImpl implements Serializable, MarketDao {
 	}
 
 	public Market findByMarketCode(String marketCode) {
-		return null;
+		Market market = null;
+		
+		try {
+			market = (Market) this.em.createQuery("SELECT m FROM Market m " +
+              "WHERE m.code = :code")
+					.setParameter("code", marketCode).getSingleResult();
+		    } catch (NoResultException e) {
+		     
+		    }
+		return market;
 	}
 
 	public List<Market> getMarketList() {

@@ -8,11 +8,22 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.ocpsoft.pretty.faces.annotation.URLAction;
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
+
 @Named
 @SessionScoped
+@URLMappings (
+		  mappings={
+			@URLMapping(id="listMarkets", pattern="/Markets/listMarkets.xhtml", viewId="/Markets/listMarkets.xhtml"),
+		    @URLMapping(id="modifyMarket", pattern="/Markets/modifyMarket.xhtml", viewId="/Markets/modifyMarket.xhtml")    
+		  }
+		)
 public class CMRMarketController
   implements Serializable
 {
@@ -24,32 +35,63 @@ public class CMRMarketController
   @Inject
   private MarketDaoRestXmlImpl marketDaoRest;
   
-  public void prepareModel()
+  
+  public MarketModel getMarketModel() {
+	return this.marketModel;
+  }
+  
+  public List<Market> getMarketsList()
   {
-    System.out.println("Prueba");
+    return this.marketModel.getListMarkets();
+  }
+  
+  @URLAction(mappingId="listMarkets")
+  public void prepareListMarkets()
+  {
+	  //Get the DAOS by JNDI
+//		List<Market> markets = this.marketDaoRest.getMarketList();
+	    List<Market> markets = this.marketDao.getMarketList();
+		this.marketModel.setListMarkets(markets);
+  }
+  
+  
+  @URLAction(mappingId="modifyMarket")
+  public void prepareModifyMarket()
+  {
+	//Get the code parameter
+    String code = "NYSE";
+    String id = FacesContext.getCurrentInstance().getExternalContext().
+    				getRequestParameterMap().get("id");
+    // Employee employee = (Employee)entityManager.find("Market", employeeId);
+	Market market = this.marketDao.findByMarketCode(code);
+	this.marketModel.setId(market.getId());
+    this.marketModel.setCity(market.getCity());
+    this.marketModel.setCode(market.getCode());
   }
   
   public void createMarket()
   {
     Market market = new Market(this.marketModel.getCode(), this.marketModel.getCity());
-    this.marketDao.save(market);
-  //final Entity<Market> entity = Entity.entity(market, MediaType.APPLICATION_XML);
-    //Response response = this.root.request().post(entity, Response.class);
-   // Form form = new Form().param("customer", "Bill")
-   //         .param("product", "IPhone 5") 
-   //         .param("CC", "4444 4444 4444 4444"); 
+    this.marketDaoRest.save(market); 
   }
-  
-  public List<Market> getMarketList()
-  {
-	// return this.marketDaoRest.getMarketList();
-    return this.marketDao.getMarketList();
-  }
+ 
   
   public String navigateToCreateMarket()
   {
 //	Market market = this.marketDaoRest.findByMarketCode("NYSE");
-	List<Market> markets = this.marketDaoRest.getMarketList();
+//	List<Market> markets = this.marketDaoRest.getMarketList();
     return "/Markets/createMarket.xhtml";
   }
+  /* // Obtain our environment naming context
+		Context initCtx = new InitialContext();
+		Context envCtx = (Context) initCtx.lookup("java:comp/env");
+
+	// Look up our data source
+		DataSource ds = (DataSource)
+  		envCtx.lookup("jdbc/EmployeeDB");
+
+	// Allocate and use a connection from the pool
+		Connection conn = ds.getConnection();
+	... use this connection to access the database ...
+	conn.close(); */
 }

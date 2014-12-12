@@ -47,7 +47,7 @@
 							title="#{i18nBundle.openHelp}" />
 					</h:outputLink>
 					<p:spacer width="10px" />
-					<ui:insert name="pageWellcomePhrase" />
+					<ui:insert name="pageWelcomePhrase" />
 				</h:column>
 			</h:panelGrid>
 		</p:layoutUnit>
@@ -55,16 +55,6 @@
 		<p:layoutUnit id="centerLayoutUnit" position="center"
 			style="min-height: 600px; margin-top: 0px;">
 			<ui:insert name="centerContent"></ui:insert>
-		</p:layoutUnit>
-
-		<p:layoutUnit id="southLayoutUnit" position="south"
-			style="min-height: 20px; text-align: center; margin-top: 0px;">
-			<h:outputText value="#{i18nBundle.basicTemplate_copyright}" />
-      &#169;
-      <h:outputLink
-				onclick="openBrowserWindow('http://www.comunytek.com');">
-				<h:outputText value="#{i18nBundle.comunytek_consultores}" />
-			</h:outputLink>
 		</p:layoutUnit>
 
 	</p:layout>
