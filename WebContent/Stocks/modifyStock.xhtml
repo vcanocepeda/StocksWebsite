@@ -47,34 +47,13 @@
             <p:layoutUnit id="centerLayoutUnit" position="center">
               <h:outputText value="#{i18nBundle.modifyStock_title}" style="font-size: 24px;"/>
               
-   <!--       <p:dialog header="#{i18nBundle.systemMessage}"
-                        modal="true"
-                        resizable="false"
-                        rendered="#{modifyDisgregationModel.nonExistingDisgregation}"
-                        visible="#{modifyDisgregationModel.nonExistingDisgregation}" appendToBody="true">
-                <h:panelGrid columns="1">
-                  <h:column>
-                    <h:outputText value="#{i18nBundle.modifyDisgregation_nonExistingDisgregation}#{modifyDisgregationModel.id}" />
-                  </h:column>
-                  <h:column>
-                    <h:outputText value="#{i18nBundle.automaticRedirection} createDisgregation.html" />
-                  </h:column>
-                </h:panelGrid>
-                <script type="text/javascript">
-                  function redirectToCreateDisgregation() {
-                    changeDocumentLocationHref('../createDisgregation.html')
-                  }
-                  setTimeout('redirectToCreateDisgregation()', 5000);
-                </script>
-              </p:dialog> -->
-              
-              <h:form id="modifyDisgregationForm" style="width=100%">
-                <h:inputHidden id="disgregationId" value="#{modifyDisgregationModel.disgregationId}" />
+              <h:form id="modifyStockForm" style="width=100%">  
+                <h:inputHidden id="marketId" value="#{CMRStockController.stockModel.id}" />
                 <p:spacer height="12px" width="100%" />
-                <p:focus for="nameField" />
+                <p:focus for="codeField" />
                 <p:messages id="messagesDiv" autoUpdate="true" />
                 
-                <p:fieldset id="mainDataFieldset" legend="#{i18nBundle.modifyStock_mainDataFieldset_legend}" toggleable="true">
+                <p:fieldset id="mainDataFieldset" legend="#{i18nBundle.modifyMarket_mainDataFieldset_legend}" toggleable="true">
                   <h:panelGrid columns="2">
                     <h:column>
                       <h:outputLabel value="#{i18nBundle.modifyStock_codeField_label}" style="margin-right: 12px;">:</h:outputLabel>
@@ -82,15 +61,15 @@
                     <h:column>
                       <p:inputText id="codeField"
                                    label="#{i18nBundle.modifyStock_codeField_label}"
-                                   value="" size="40" maxlength="32" readonly="true" />
+                                   value="#{CMRStockController.stockModel.code}" size="40" maxlength="32" />
                     </h:column>
                     <h:column>
-                      <h:outputLabel value="#{i18nBundle.modifyStock_nameField_label}" style="margin-right: 12px;" >:</h:outputLabel>
+                      <h:outputLabel value="#{i18nBundle.modifyStock_nameField_label}" style="margin-right: 12px;">:</h:outputLabel>
                     </h:column>
                     <h:column>
-                      <p:inputTextarea id="nameField"
-                                       label="#{i18nBundle.modifyStock_nameField_label}"
-                                       value="" rows="3" cols="144" maxlength="256" />
+                      <p:inputText id="nameField"
+                                   label="#{i18nBundle.modifyStock_nameField_label}"
+                                   value="#{CMRStockController.stockModel.name}" size="40" maxlength="32" />
                     </h:column>
                   </h:panelGrid>
                 </p:fieldset>
@@ -98,7 +77,8 @@
                 <p:spacer height="12px" width="100%" />
                 <p:commandButton id="acceptButton"
                                  value="#{i18nBundle.modifyStock_acceptButton_value}"
-                                 icon="ui-icon-check" update="modifyDisgregationForm"/>
+                                 icon="ui-icon-check" action="#{CMRStockController.modifyStock}" 
+                                 update="modifyStockForm"/>
                 <p:spacer width="12px" />
                 <p:commandButton id="cancelButton"
                                  immediate="true"

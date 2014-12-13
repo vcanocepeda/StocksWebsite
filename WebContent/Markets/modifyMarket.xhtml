@@ -32,7 +32,7 @@
 		</ui:define>
 
 		<ui:define name="centerContent">
-			<p:tabView id="tabsContainer" activeIndex="2" widgetVar="tabsContainer">
+			<p:tabView id="tabsContainer" activeIndex="1" widgetVar="tabsContainer">
 				<p:tab id="homeTab" title="#{i18nBundle.homeTabTitle}">
 				</p:tab>
 				
@@ -95,7 +95,8 @@
                 <p:spacer height="12px" width="100%" />
                 <p:commandButton id="acceptButton"
                                  value="#{i18nBundle.modifyMarket_acceptButton_value}"
-                                 icon="ui-icon-check" update="modifyMarketForm"/>
+                                 icon="ui-icon-check" actionListener="#{CMRMarketController.modifyMarket}" 
+                                 ajax="true" />
                 <p:spacer width="12px" />
                 <p:commandButton id="cancelButton"
                                  immediate="true"

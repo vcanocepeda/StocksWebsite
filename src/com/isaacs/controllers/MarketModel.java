@@ -3,13 +3,12 @@ package com.isaacs.controllers;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
-
 import com.isaacs.model.Market;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class MarketModel
   implements Serializable
 {
@@ -17,6 +16,7 @@ public class MarketModel
   private Integer id;
   private String code;
   private String city;
+  private Market selectedMarket;
   private List<Market> marketsList;
   private Boolean readOnlyName;
   
@@ -48,14 +48,22 @@ public class MarketModel
     this.city = city;
   }
   
-  public List<Market> getListMarkets()
+  public List<Market> getMarketsList()
   {
     return this.marketsList;
   }
   
-  public void setListMarkets(List<Market> markets)
+  public void setMarketsList(List<Market> markets)
   {
     this.marketsList = markets;
+  }
+  
+  public Market getSelectedMarket() {
+	return selectedMarket;
+  }
+
+  public void setSelectedMarket(Market selectedMarket) {
+	this.selectedMarket = selectedMarket;
   }
   
   public Boolean getReadOnlyName()

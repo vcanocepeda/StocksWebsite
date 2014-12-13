@@ -40,18 +40,13 @@ public class CMRMarketController
 	return this.marketModel;
   }
   
-  public List<Market> getMarketsList()
-  {
-    return this.marketModel.getListMarkets();
-  }
-  
   @URLAction(mappingId="listMarkets")
   public void prepareListMarkets()
   {
 	  //Get the DAOS by JNDI
 //		List<Market> markets = this.marketDaoRest.getMarketList();
 	    List<Market> markets = this.marketDao.getMarketList();
-		this.marketModel.setListMarkets(markets);
+		this.marketModel.setMarketsList(markets);
   }
   
   
@@ -59,20 +54,34 @@ public class CMRMarketController
   public void prepareModifyMarket()
   {
 	//Get the code parameter
-    String code = "NYSE";
-    String id = FacesContext.getCurrentInstance().getExternalContext().
-    				getRequestParameterMap().get("id");
-    // Employee employee = (Employee)entityManager.find("Market", employeeId);
-	Market market = this.marketDao.findByMarketCode(code);
-	this.marketModel.setId(market.getId());
-    this.marketModel.setCity(market.getCity());
-    this.marketModel.setCode(market.getCode());
+    String code = FacesContext.getCurrentInstance().getExternalContext().
+			getRequestParameterMap().get("marketCode");
+    Market market = this.marketDao.findByMarketCode(code);
+	
+	if(market == null) {
+		//this.cMRMarketUserQueryModel.setNonExistingMarketUserQuery(true);
+	}else {
+		this.marketModel.setSelectedMarket(market);
+		this.marketModel.setId(market.getId());
+		this.marketModel.setCity(market.getCity());
+		this.marketModel.setCode(market.getCode());
+	}
   }
   
   public void createMarket()
   {
     Market market = new Market(this.marketModel.getCode(), this.marketModel.getCity());
     this.marketDaoRest.save(market); 
+  }
+  
+  public String modifyMarket()
+  {
+ 
+	Market market = this.marketModel.getSelectedMarket();
+	market.setCode(this.marketModel.getCode());
+    market.setCity(this.marketModel.getCity());
+    this.marketDao.update(market);      
+    return "/Markets/listMarkets.xhtml";
   }
  
   

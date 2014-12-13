@@ -46,8 +46,8 @@
 				<p:layoutUnit id="centerLayoutUnit" position="center">
 					<h:form>					
 					<p:dataTable id="paginatedListMarkets" var="market"
-						value="#{CMRMarketController.marketModel.marketList}" rows="10"
-						emptyMessage="There is no records to show">
+						value="#{CMRMarketController.marketModel.marketsList}" rows="10"
+						emptyMessage="#{i18nBundle.noRecordsFound}">
 						<p:column>
 							<f:facet name="header">
 								<h:outputText value="#{i18nBundle.modifyMarket_codeField_label}" />

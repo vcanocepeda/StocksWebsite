@@ -69,6 +69,17 @@ public class MarketDaoHibernateImpl implements Serializable, MarketDao {
 	}
 
 	public void update(Market market) {
+		try {
+			this.em.getTransaction().begin();
+			this.em.merge(market);
+			this.em.flush();
+			this.em.getTransaction().commit();
+			logger.info("EntityMarket updated: market " + market.getCode());
+		} catch (Exception e) {
+			this.em.getTransaction().rollback();
+			e.printStackTrace();
+			logger.error(e);
+		}
 	}
 
 	public void delete(Market Market) {

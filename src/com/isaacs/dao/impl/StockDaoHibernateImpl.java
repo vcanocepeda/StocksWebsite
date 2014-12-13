@@ -14,6 +14,7 @@ import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -59,13 +60,33 @@ public class StockDaoHibernateImpl implements Serializable, StockDao {
 	}
 
 	public void update(Stock stock) {
+		try {
+			this.em.getTransaction().begin();
+			this.em.merge(stock);
+			this.em.flush();
+			this.em.getTransaction().commit();
+			logger.info("EntityStock updated: stock " + stock.getCode());
+		} catch (Exception e) {
+			this.em.getTransaction().rollback();
+			e.printStackTrace();
+			logger.error(e);
+		}
 	}
 
 	public void delete(Stock stock) {
 	}
 
 	public Stock findByStockCode(String stockCode) {
-		return null;
+		Stock stock = null;
+		
+		try {
+			stock = (Stock) this.em.createQuery("SELECT s FROM Stock s " +
+              "WHERE s.code = :code")
+					.setParameter("code", stockCode).getSingleResult();
+		    } catch (NoResultException e) {
+		     
+		    }
+		return stock;
 	}
 
 	public List<Stock> getStockList() {

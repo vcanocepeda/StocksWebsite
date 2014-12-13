@@ -47,7 +47,7 @@
 				<p:layoutUnit id="centerLayoutUnit" position="center">
 					<h:form>
 						<p:dataTable id="paginatedList" var="stock"
-							value="#{CMRStockController.stockList}" rows="15"
+							value="#{CMRStockController.stockModel.stocksList}" rows="10"
 							emptyMessage="#{i18nBundle.noRecordsFound}">
 							<p:column>
 								<f:facet name="header">
@@ -71,9 +71,9 @@
                   				<f:facet name="header">
                   					<h:outputText value="#{i18nBundle.actionsColumn_Header}" />
                   				</f:facet>                              
-                  					<h:outputLink id="modifyLink_#{stock.id}" 
-                  					value="Stocks/modifyStock.xhtml" style="margin-right: 8px;">
-                    				<f:param name="stockId" value="#{stock.id}" />
+                  					<h:outputLink id="modifyLink_#{stock.code}" 
+                  					value="/Stocks/modifyStock.xhtml" style="margin-right: 8px;">
+                    				<f:param name="stockCode" value="#{stock.code}" />
                     				<h:graphicImage name="img/modify_24x24.png" title="#{i18nBundle.modify}" />
                   					</h:outputLink>
                   							
@@ -83,34 +83,13 @@
                 			</p:column>
 						</p:dataTable>
 						<p:spacer height="12px" width="100%" />
-		<!--  						
-								<p:dataTable id="paginatedListMarkets" var="market"
-									value="#{CMRStockController.marketList}" rows="10"
-									emptyMessage="There is no records to show">
-									<p:column>
-										<f:facet name="header">
-											<h:outputText value="Code" />
-										</f:facet>
-										<h:outputText value="#{market.code}" />
-									</p:column>
-									<p:column>
-										<f:facet name="header">
-											<h:outputText value="City" />
-										</f:facet>
-										<h:outputText value="#{market.city}" />
-									</p:column>
-
-								</p:dataTable>
-								<p:spacer height="12px" width="100%" /> -->
-						<p:panelGrid id="buttons" style="width: 50%; text-align: right;" columns="2">
+  						
+						<p:panelGrid id="buttons" style="width: 50%; text-align: right;" columns="1">
 							<p:column>
 								<p:commandButton id="createStockButton" value="Create Stock"
 								action="#{CMRStockController.navigateToCreateStock}" icon="ui-icon-plus" ajax="false" />
 							</p:column>
-							<p:column>
-								<p:commandButton id="createMarketButton" value="Create Market"
-								action="#{CMRMarketController.navigateToCreateMarket}" icon="ui-icon-plus" ajax="false" />
-							</p:column>
+		
 						</p:panelGrid>
 					</h:form>
 
