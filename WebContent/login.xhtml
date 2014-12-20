@@ -1,21 +1,48 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
-<h:head>
-</h:head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<body>
+  <ui:composition template="basicTemplate.xhtml">
+    
+    <ui:define name="pageCSSElements"></ui:define>
+    
+    <ui:define name="pageScriptElements">
+      <script type="text/javascript">
+        function openHelp() {
+          window.open('loginHelp.html');
+        }
+      </script>
+    </ui:define>
 
+    <ui:define name="pageWelcomePhrase">&nbsp;</ui:define>
 
-<h:body>
-	<h:form id="form" prependId="false">
-	<h3>Dynamic Data table example</h3>
-
-		<p:dataTable var="data" value="#{tableBean.stocks}">
-
-			<p:columns value="#{tableBean.columns}" var="column" columnIndexVar="colIndex">
-				<f:facet name="header">#{column.header}</f:facet>
- 			#{data[column.property]}
-			</p:columns>
-
-		</p:dataTable>
- 	</h:form>
-</h:body>
+    <ui:define name="pageTrail">&nbsp;</ui:define>
+    
+    <ui:define name="centerContent">
+      <h:form id="loginForm" style="position: relative; top: 100px; left: 360px; width: 460px; height: 200px;">
+        <p:focus for="userNameField" />
+        <p:messages id="messagesDiv" autoUpdate="true" />
+        
+        <p:fieldset id="credentialsFieldset" legend="#{i18nBundle.login_credentialsFieldset_legend}">
+          <h:panelGrid columns="2"
+                       style="position: relative; top: 20px; left: 40px; width: 400px; height: 140px;">
+            <h:outputLabel value="#{i18nBundle.login_userNameField_label}">:</h:outputLabel>
+            <p:inputText id="userNameField" label="#{i18nBundle.login_userNameField_label}" value="#{loginModel.userName}" />
+            <h:outputLabel value="#{i18nBundle.login_passwordField_label}">:</h:outputLabel>
+            <p:password id="passwordField" label="#{i18nBundle.login_passwordField_label}" value="#{loginModel.password}" />
+            &nbsp;
+            <p:commandButton id="acceptButton"
+                             value="#{i18nBundle.login_acceptButton_value}"
+                             action="#{loginController.checkCredentials}" 
+                             icon="ui-icon-check" ajax="false" />
+          </h:panelGrid>
+        </p:fieldset>
+			</h:form>
+    </ui:define>
+    
+  </ui:composition>
+</body>
 </html>

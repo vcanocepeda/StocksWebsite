@@ -52,7 +52,7 @@
 	
 	<!-- Welcome page -->
 	<welcome-file-list>
-		<welcome-file>Markets/listMarkets.xhtml</welcome-file>
+		<welcome-file>login.xhtml</welcome-file>
 	</welcome-file-list>
  
 </web-app>

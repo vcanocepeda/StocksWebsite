@@ -5,6 +5,11 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
     version="2.1">
     <application>
+    <lifecycle>
+      <phase-listener>
+        com.isaacs.listeners.MyPhaseListener
+      </phase-listener>
+	</lifecycle>
     <locale-config>
       <default-locale>es</default-locale>
       <supported-locale>es</supported-locale>

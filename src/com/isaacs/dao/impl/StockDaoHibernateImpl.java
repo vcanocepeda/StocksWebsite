@@ -2,21 +2,16 @@
 package com.isaacs.dao.impl;
 
 import com.isaacs.dao.StockDao;
+import com.isaacs.listeners.EMFServletContextListener;
 import com.isaacs.model.Market;
 import com.isaacs.model.Stock;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Properties;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
@@ -27,17 +22,7 @@ public class StockDaoHibernateImpl implements Serializable, StockDao {
 	private EntityManager em;
 
 	public StockDaoHibernateImpl() {
-		Properties prop = new Properties();
-		InputStream in = getClass().getClassLoader().getResourceAsStream(
-				"jdbc.properties");
-		try {
-			prop.load(in);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.emf = Persistence.createEntityManagerFactory("StockWebService",
-				prop);
-		this.em = this.emf.createEntityManager();
+		this.em = EMFServletContextListener.createEntityManager();
 		logger.info("EntityManager created: em " + this.em.toString());
 	}
 
