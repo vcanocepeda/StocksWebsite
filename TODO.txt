@@ -1,0 +1,6 @@
+We have to change the way to get EntityManagerFactory
+through ServletContextListener.. We have a example here
+http://stackoverflow.com/questions/7862700/best-practice-to-get-entitymanagerfactory
+ with a @WebListener that we also could to PhaseListener
+ 
+ 
