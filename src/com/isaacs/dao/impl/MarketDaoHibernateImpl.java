@@ -3,6 +3,7 @@ package com.isaacs.dao.impl;
 import com.isaacs.dao.MarketDao;
 import com.isaacs.model.Market;
 import com.isaacs.listeners.EMFServletContextListener;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
@@ -23,7 +25,8 @@ public class MarketDaoHibernateImpl implements Serializable, MarketDao {
 	private EntityManager em;
 
 	public MarketDaoHibernateImpl() {
-		
+		this.em = EMFServletContextListener.createEntityManager();
+		logger.info("EntityManager created: em " + this.em.toString());
 	}
 	
 	@PostConstruct

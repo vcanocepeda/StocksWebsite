@@ -3,4 +3,18 @@ through ServletContextListener.. We have a example here
 http://stackoverflow.com/questions/7862700/best-practice-to-get-entitymanagerfactory
  with a @WebListener that we also could to PhaseListener
  
- 
+We have to move the dao selector to ServletContextListener an Abstract Factory Pattern
+http://www.tutorialspoint.com/design_pattern/design_pattern_quick_guide.htm
+
+// Obtain our environment naming context Context initCtx = new
+	InitialContext(); Context envCtx = (Context)
+	initCtx.lookup("java:comp/env");
+	
+	// Look up our data source DataSource ds = (DataSource)
+	envCtx.lookup("jdbc/EmployeeDB");
+	
+	// Allocate and use a connection from the pool Connection conn =
+	ds.getConnection(); ... use this connection to access the database ...
+	conn.close();
+
+http://stackoverflow.com/questions/15850162/what-is-the-difference-between-facescontext-and-externalcontext

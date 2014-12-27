@@ -48,7 +48,7 @@ public class LoginController extends AbstractController {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 			session.setAttribute("login", user);
-			result = appendFacesRedirect("/Markets/listMarkets.xhtml");
+			result = appendFacesRedirect("/Markets/listMarkets");
 		}
 		return result;
 	}

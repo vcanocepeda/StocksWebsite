@@ -29,62 +29,11 @@ public abstract class AbstractController implements Serializable {
 	//varia - end
 	
 	//views - start
-	public static final String HOME_TAB = "homeTab";
-	public static final String QUERIES_TAB = "queriesTab";
-	public static final String CONFIGURATION_TAB = "configurationTab";
-	public static final String ADMINISTRATION_TAB = "administrationTab";
-
-	public static final String HOME_VIEW = "home";
-	public static final String EXPIRED_CREDENTIALS_VIEW = "expiredCredentials";
-	public static final String INCORRECT_CREDENTIALS_VIEW = "incorrectCredentials";
-	public static final String USER_WITHOUT_ROLE_VIEW = "userWithoutRole";
-	
-	public static final String USER_LIST_VIEW = "userList";
-	public static final String CREATE_USER_VIEW = "createUser";
-	public static final String MODIFY_USER_VIEW = "modifyUser";
-	
-	public static final String SECURITYLEVEL_LIST_VIEW = "securityLevelList";
-	public static final String CREATE_SECURITYLEVEL_VIEW = "createSecurityLevel";
-	public static final String MODIFY_SECURITYLEVEL_VIEW = "modifySecurityLevel";
-
-	public static final String DISGREGATION_LIST_VIEW = "disgregationList";
-	public static final String CREATE_DISGREGATION_VIEW = "createDisgregation";
-	public static final String MODIFY_DISGREGATION_VIEW = "modifyDisgregation";
-	
-	public static final String SERVICETYPE_LIST_VIEW = "serviceTypeList";
-	public static final String CREATE_SERVICETYPE_VIEW = "createServiceType";
-	public static final String MODIFY_SERVICETYPE_VIEW = "modifyServiceType";
-	
-	public static final String SERVICE_LIST_VIEW = "serviceList";
-	public static final String CREATE_SERVICE_VIEW = "createService";
-	public static final String MODIFY_SERVICE_VIEW = "modifyService";
-	
-	public static final String PARAMETERGROUP_LIST_VIEW = "parameterGroupList";
-	public static final String CREATE_PARAMETERGROUP_VIEW = "createParameterGroup";
-	public static final String MODIFY_PARAMETERGROUP_VIEW = "modifyParameterGroup";
-	
-	public static final String ROLE_LIST_VIEW = "roleList";
-	public static final String CREATE_ROLE_VIEW = "createRole";
-	public static final String MODIFY_ROLE_VIEW = "modifyRole";
-	
-	public static final String MARKETUSERQUERY_LIST_VIEW = "marketUserQueryList";
-	public static final String CREATE_MARKETUSERQUERY_VIEW = "createMarketUserQuery";
-	public static final String MODIFY_MARKETUSERQUERY_VIEW = "modifyMarketUserQuery";
-	public static final String MARKETUSERQUERY_RESULTS_VIEW = "marketUserQueryResults";
-	
-	public static final String SERVICESUSERQUERY_LIST_VIEW = "servicesUserQueryList";
-	public static final String CREATE_SERVICESUSERQUERY_VIEW = "createServicesUserQuery";
-	public static final String MODIFY_SERVICESUSERQUERY_VIEW = "modifyServicesUserQuery";
-	public static final String SERVICESUSERQUERY_RESULTS_VIEW = "servicesUserQueryResults";
+	public static final String MARKETS_LIST_VIEW = "/Markets/listMarkets";
+	public static final String MARKETS_MODIFY_VIEW = "/Markets/modifyMarket";
+	public static final String MARKETS_CREATE_VIEW = "/Markets/createMarket";
 	//views - end
-	
-	//messages - start	
-	public static final String SUCCESSFULL_INSERTION_MESSAGE_KEY = "successfullInsertion";
-	public static final String SUCCESSFULL_DELETION_MESSAGE_KEY = "successfullDeletion";
-	public static final String SUCCESSFULL_UPDATE_MESSAGE_KEY = "successfullUpdate";
-	public static final String SYSTEM_UNAVAILABLE_MESSAGE_KEY = "systemUnavailable";
-	public static final String PASSWORDS_DO_NOT_MATCH_MESSAGE_KEY = "passwordsDoNotMatch";
-	//messages - end	
+		
 	
 	//request parameters - start
 	public static final String CLEAR_SESSION_REQUEST_PARAMETER = "clearSession";

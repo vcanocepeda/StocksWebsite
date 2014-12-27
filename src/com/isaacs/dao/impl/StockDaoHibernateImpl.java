@@ -1,4 +1,6 @@
 // We have to change the methods (Copy the ones from MarketDaoHibernate...)
+
+//There is no PostContruct - PreDestroy EntityManager
 package com.isaacs.dao.impl;
 
 import com.isaacs.dao.StockDao;
@@ -9,6 +11,7 @@ import com.isaacs.model.Stock;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -96,6 +99,12 @@ public class StockDaoHibernateImpl implements Serializable, StockDao {
 			e.printStackTrace();
 		}
 		return listMarkets;
+	}
+	
+	@PreDestroy
+	public void CloseEntityManager() {
+		this.em.close();
+		logger.info("EntityManager destroyed: em " + this.em.toString());
 	}
 
 }

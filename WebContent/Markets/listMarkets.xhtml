@@ -24,7 +24,7 @@
 			<div style="margin-right: 60px; float: right;">
 				<h:outputText value="#{i18nBundle.Welcome}" />
 				<p:spacer width="4" />
-				<h:outputText value="Username" />
+				<h:outputText value="Username : #{LoginController.loginModel.userName}" />
 			</div>
 		</ui:define>
 
@@ -64,11 +64,11 @@
                   			<f:facet name="header">
                   				<h:outputText value="#{i18nBundle.actionsColumn_Header}" />
                   			</f:facet>                              
-                  				<h:outputLink id="modifyLink_#{market.code}" 
-                  				value="/Markets/modifyMarket.xhtml" style="margin-right: 8px;">
+                  				<h:commandLink id="modifyLink_#{market.code}"
+                  				action="#{CMRMarketController.navigateToModifyMarket}" style="margin-right: 8px;">
                     			<f:param name="marketCode" value="#{market.code}" />
                     			<h:graphicImage name="img/modify_24x24.png" title="#{i18nBundle.modify}" />
-                  				</h:outputLink>
+                  				</h:commandLink>
                   							
                   				<h:outputLink id="deleteLink_#{market.id}" >			
                    				<h:graphicImage name="img/delete_24x24.png" title="#{i18nBundle.delete}" />
