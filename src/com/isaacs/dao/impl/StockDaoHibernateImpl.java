@@ -4,7 +4,7 @@
 package com.isaacs.dao.impl;
 
 import com.isaacs.dao.StockDao;
-import com.isaacs.listeners.EMFServletContextListener;
+import com.isaacs.listeners.JsfServletContextListener;
 import com.isaacs.model.Market;
 import com.isaacs.model.Stock;
 
@@ -25,7 +25,7 @@ public class StockDaoHibernateImpl implements Serializable, StockDao {
 	private EntityManager em;
 
 	public StockDaoHibernateImpl() {
-		this.em = EMFServletContextListener.createEntityManager();
+		this.em = JsfServletContextListener.createEntityManager();
 		logger.info("EntityManager created: em " + this.em.toString());
 	}
 

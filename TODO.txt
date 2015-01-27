@@ -18,3 +18,25 @@ http://www.tutorialspoint.com/design_pattern/design_pattern_quick_guide.htm
 	conn.close();
 
 http://stackoverflow.com/questions/15850162/what-is-the-difference-between-facescontext-and-externalcontext
+
+integrate it with Facebook
+
+http://www.devx.com/Java/how-to-integrate-facebook-and-twitter-with-java-applications.html
+
+
+
+
+save Dao
+File file = new File("C:\\file.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(Market.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+			jaxbMarshaller.marshal(market, file);
+			jaxbMarshaller.marshal(market, System.out);
+
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}

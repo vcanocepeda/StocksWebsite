@@ -1,7 +1,7 @@
 package com.isaacs.dao.factories;
 
 import com.isaacs.dao.MarketDao;
-import com.isaacs.listeners.EMFServletContextListener;
+import com.isaacs.listeners.JsfServletContextListener;
 import com.isaacs.dao.impl.MarketDaoHibernateImpl;
 import com.isaacs.dao.impl.MarketDaoRestXmlImpl;
 
@@ -12,7 +12,7 @@ public class MarketDaoFactory implements DaoTypes{
 	//use marketDao method to get object of type marketDao 
 	public static MarketDao getMarketDao(){
 	      if (marketDao == "") 
-	    	  marketDao = DaoType[EMFServletContextListener.getIntDaoSelected()];
+	    	  marketDao = DaoType[JsfServletContextListener.getIntDaoSelected()];
 	      if(marketDao.equalsIgnoreCase(DaoType[0])){
 	         return new MarketDaoHibernateImpl();
 	      } else if(marketDao.equalsIgnoreCase(DaoType[1])){

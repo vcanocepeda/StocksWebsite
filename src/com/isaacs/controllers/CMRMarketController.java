@@ -4,12 +4,12 @@ import com.isaacs.dao.MarketDao;
 import com.isaacs.model.Market;
 import com.isaacs.dao.factories.MarketDaoFactory;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -70,25 +70,42 @@ public class CMRMarketController extends AbstractController {
 		}
 	}
 
-	public void createMarket() {
+	public String createMarket() {
+		String error = "";
 		Market market = new Market(this.marketModel.getCode(),
 				this.marketModel.getCity());
-		marketDao.save(market);
+		error = marketDao.save(market);
+		if (!error.equals("")) {
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", error));
+			return "";
+		} else {
+			return appendFacesRedirect(MARKETS_LIST_VIEW);
+		}
 	}
 
 	public String modifyMarket() {
+		String error = "";
 		Market market = this.marketModel.getSelectedMarket();
 		market.setCode(this.marketModel.getCode());
 		market.setCity(this.marketModel.getCity());
-		marketDao.update(market);
-		return MARKETS_LIST_VIEW;
+		error = marketDao.update(market);
+		if (!error.equals("")) {
+			FacesContext.getCurrentInstance().addMessage(null, 
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", error));
+			return "";
+		} else {
+			return appendFacesRedirect(MARKETS_LIST_VIEW);
+		}
+		
 	}
 
 	public String navigateToCreateMarket() {
-		return MARKETS_CREATE_VIEW; //Maybe we need appendFacesRedirect
+		return appendFacesRedirect(MARKETS_CREATE_VIEW);
 	}
 
-	// We need to place the outcomes on the abstract controllers
+	// We need to place the outcomes on the abstract controllers with 
+	// a new method Maybe we need appendFacesRedirect(param1)
 	public String navigateToModifyMarket() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Map<String, String> map = facesContext.getExternalContext()

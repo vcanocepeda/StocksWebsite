@@ -2,7 +2,7 @@ package com.isaacs.dao.impl;
 
 import com.isaacs.dao.MarketDao;
 import com.isaacs.model.Market;
-import com.isaacs.listeners.EMFServletContextListener;
+import com.isaacs.listeners.JsfServletContextListener;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
@@ -25,18 +24,19 @@ public class MarketDaoHibernateImpl implements Serializable, MarketDao {
 	private EntityManager em;
 
 	public MarketDaoHibernateImpl() {
-		this.em = EMFServletContextListener.createEntityManager();
+		this.em = JsfServletContextListener.createEntityManager();
 		logger.info("EntityManager created: em " + this.em.toString());
 	}
 	
 	@PostConstruct
 	public void CreateEntityManager() {
-		this.em = EMFServletContextListener.createEntityManager();
+		this.em = JsfServletContextListener.createEntityManager();
 		logger.info("EntityManager created: em " + this.em.toString());
 	}
 	
 
-	public void save(Market market) {
+	public String save(Market market) {
+		String error = "";
 		try {
 			this.em.getTransaction().begin();
 			if (!this.em.contains(market)) {
@@ -48,12 +48,14 @@ public class MarketDaoHibernateImpl implements Serializable, MarketDao {
 			logger.info("EntityMarket saved: market " + market.getCode());
 		} catch (Exception e) {
 			this.em.getTransaction().rollback();
-			e.printStackTrace();
+			error = e.toString();
 			logger.error(e);
 		}
+		return error;
 	}
 
-	public void update(Market market) {
+	public String update(Market market) {
+		String error = "";
 		try {
 			this.em.getTransaction().begin();
 			this.em.merge(market);
@@ -65,9 +67,12 @@ public class MarketDaoHibernateImpl implements Serializable, MarketDao {
 			e.printStackTrace();
 			logger.error(e);
 		}
+		return error;
 	}
 
-	public void delete(Market Market) {
+	public String delete(Market Market) {
+		String error = "";
+		return error;
 	}
 
 	public Market findByMarketCode(String marketCode) {

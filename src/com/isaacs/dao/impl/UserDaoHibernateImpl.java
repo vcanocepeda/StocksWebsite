@@ -2,9 +2,8 @@ package com.isaacs.dao.impl;
 
 import com.isaacs.dao.UserDao;
 import com.isaacs.model.User;
-import com.isaacs.listeners.EMFServletContextListener;
+import com.isaacs.listeners.JsfServletContextListener;
 import java.io.Serializable;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -28,7 +27,7 @@ public class UserDaoHibernateImpl implements Serializable, UserDao {
 	
 	@PostConstruct
 	public void CreateEntityManager() {
-		this.em = EMFServletContextListener.createEntityManager();
+		this.em = JsfServletContextListener.createEntityManager();
 		logger.info("EntityManager created: em " + this.em.toString());
 	}
 

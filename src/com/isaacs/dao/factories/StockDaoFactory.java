@@ -1,7 +1,7 @@
 package com.isaacs.dao.factories;
 
 import com.isaacs.dao.StockDao;
-import com.isaacs.listeners.EMFServletContextListener;
+import com.isaacs.listeners.JsfServletContextListener;
 import com.isaacs.dao.impl.StockDaoHibernateImpl;
 //import com.isaacs.dao.impl.StockDaoRestXmlImpl;
 // Look if we could get a parent factory Abstract Factory for all tDaos
@@ -13,7 +13,7 @@ public class StockDaoFactory implements DaoTypes{
 	//use marketDao method to get object of type marketDao 
 	public static StockDao getStockDao(){
 	      if (stockDao == "") 
-	    	  stockDao = DaoType[EMFServletContextListener.getIntDaoSelected()];
+	    	  stockDao = DaoType[JsfServletContextListener.getIntDaoSelected()];
 	      if(stockDao.equalsIgnoreCase(DaoType[0])){
 	         return new StockDaoHibernateImpl();
 	      } else if(stockDao.equalsIgnoreCase(DaoType[1])){

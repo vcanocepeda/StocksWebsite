@@ -1,19 +1,23 @@
 package com.isaacs.dao.impl;
 
-import java.io.File;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import com.isaacs.listeners.JsfServletContextListener;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
+import org.apache.log4j.Logger;
 
 import com.isaacs.dao.MarketDao;
 import com.isaacs.model.Market;
@@ -24,76 +28,67 @@ public class MarketDaoRestXmlImpl implements Serializable, MarketDao {
 	 * 
 	 */
 	private static final long serialVersionUID = -288077746076465581L;
-	
-	private static final String url = "http://localhost:9001/MarketService/getMarketsXml";
+	static final String url = JsfServletContextListener
+			.getUrlWebservice() + "/MarketService";
+	static Logger logger = Logger.getLogger(MarketDaoHibernateImpl.class);
 
 	@Override
-	public void save(Market market) {
+	public String save(Market market) {
+		String error ="";
+		String urlAddMarket = url + "/addMarketXml";
 		try {
-
-			File file = new File("C:\\file.xml");
-			JAXBContext jaxbContext = JAXBContext.newInstance(Market.class);
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-			// output pretty printed
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-			jaxbMarshaller.marshal(market, file);
-			jaxbMarshaller.marshal(market, System.out);
-
-		} catch (JAXBException e) {
-			e.printStackTrace();
+			Client client = ClientBuilder.newClient();
+			
+			Invocation saveBook = client.target(urlAddMarket).request()
+					.buildPost(Entity.entity(market, MediaType.APPLICATION_XML));
+			Response response = saveBook.invoke();
+			error = response.readEntity(String.class);
+			logger.info("EntityMarket saved: market " + market.getCode() +
+					" on " + url);
+		} catch ( javax.ws.rs.NotFoundException e) {
+			error = e.toString();
 		}
-
+		return error;
 	}
 
 	@Override
-	public void update(Market paramMarket) {
-		// TODO Auto-generated method stub
-
+	public String update(Market paramMarket) {
+		String error ="";
+		return error;
 	}
 
 	@Override
-	public void delete(Market paramMarket) {
-		// TODO Auto-generated method stub
-
+	public String delete(Market paramMarket) {
+		String error ="";
+		return error;
 	}
 
 	@Override
 	public Market findByMarketCode(String code) {
-		String url = "http://localhost:9001/MarketService/getMarketXml/NYSE";
-
-		// add request header
-		// con.setRequestProperty("User-Agent", USER_AGENT);
-
-		StringBuffer response;
+		String urlGetMarket = url + "/getMarketXml/" + code;
 		Market market = null;
 
 		try {
-			URL obj = new URL(url);
+			URL obj = new URL(urlGetMarket);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			// optional default is GET
 			con.setRequestMethod("GET");
-			int responseCode = con.getResponseCode();
-			System.out.println("\nSending 'GET' request to URL : " + url);
+			System.out.println("\nSending 'GET' request to URL : " + urlGetMarket);
+			int responseCode = con.getResponseCode();	
 			System.out.println("Response Code : " + responseCode);
-			// BufferedReader in = new BufferedReader(new InputStreamReader(
-			// con.getInputStream()));
-			// String inputLine;
-			// response = new StringBuffer();
-			// while ((inputLine = in.readLine()) != null) {
-			// response.append(inputLine);
-			// }
-			// in.close();
-
-			// print result
-			// System.out.println(response.toString());
-
+			
 			JAXBContext jaxbContext = JAXBContext.newInstance(Market.class);
 
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			market = (Market) jaxbUnmarshaller.unmarshal(con.getInputStream());
-
+			
+			/* // 2. Fetch book by id
+				Book book2 = client.target(REST_SERVICE_URL).path("/{bookId}")
+				.resolveTemplate("bookId", bookId).request().get(Book.class);
+			*/
+			/* ClientResponse response = r.get(ClientResponse.class);
+    			EntityTag e = response.getEntityTag();
+    			String entity = response.getEntity(String.class); */
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -103,31 +98,25 @@ public class MarketDaoRestXmlImpl implements Serializable, MarketDao {
 
 	@Override
 	public List<Market> getMarketList() {
-		// We don't have any client but since java-rs 2.0 we have one.. We could use the popular Jersey too
+		// We don't have any client but since java-rs 2.0 we have one.. 
+		// We could use the popular Jersey too
 		// We have to configure marketService URL and add params in every method
-		Client client = ClientBuilder.newClient();
-		GenericType<List<Market>> listmarkets = new GenericType<List<Market>>() {};
-		List<Market> markets = client.target(url)
+		List<Market> markets = null;
+		String urlGetMarkets = url + "/getMarketsXml";
+		try {
+			Client client = ClientBuilder.newClient();
+			GenericType<List<Market>> listmarkets = new GenericType<List<Market>>() {};
+			markets = client.target(urlGetMarkets)
 				.request(MediaType.APPLICATION_XML).get(listmarkets);
-		
+		} catch ( javax.ws.rs.NotFoundException e) {
+			
+		}
 		return markets;
 	}
 /* We have to try here with a List<Market>		
 		Response response = client.target(url)
 				.request(MediaType.APPLICATION_XML).get();
 		Market bookWrapper = response.readEntity(Market.class); */
-/*		Market market = client.target("http://example.com/customers")
-				.queryParam("name", "Bill Burke")
-				.request().get(Market.class); */
-		
-		// Example Client client = ClientFactory.newClient();
-		/*WebTarget target = client.target("http://example.com/shop");
-		Form form = new Form().param("customer", "Bill")
-		.param("product", "IPhone 5")
-		.param("CC", "4444 4444 4444 4444");
-		Response response = target.request().post(Entity.form(form));
-		assert response.getStatus() == 200;
-		Order order = response.readEntity(Order.class); */
 
 	/*
 	 * Jersey request String uri = "http://localhost:8080/jd/rest/emp/getEmp";
@@ -144,4 +133,6 @@ public class MarketDaoRestXmlImpl implements Serializable, MarketDao {
 	 * System.out.println(exc.getErrorId()); } }catch(Exception e){
 	 * System.out.println(e.getMessage()); }
 	 */
+	
+	
 }

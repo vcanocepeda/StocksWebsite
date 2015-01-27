@@ -19,9 +19,9 @@
 			</script>
 		</ui:define>
 
-		<ui:define name="pageWellcomePhrase">
+		<ui:define name="pageWelcomePhrase">
 			<div style="margin-right: 60px; float: right;">
-				<h:outputText value="#{i18nBundle.Wellcome}" />
+				<h:outputText value="#{i18nBundle.Welcome}" />
 				<p:spacer width="4" />
 				<h:outputText value="User" />
 			</div>
@@ -43,11 +43,9 @@
 
 						<p:layoutUnit id="centerLayoutUnit" position="center">
 							<h:form id="createMarketForm" style="width=100%">
-								<!-- <h:inputHidden id="stockId"
-			 value="#{createDisgregationModel.disgregationId}" /> -->
 								<p:spacer height="12px" width="100%" />
 								<p:focus for="codeField" />
-								<p:messages id="messagesDiv" autoUpdate="true" />
+								<p:messages id="messagesDiv" showDetail="true" autoUpdate="true" closable="true" />
 
 								<p:fieldset id="mainDataFieldset"
 									legend="#{i18nBundle.createMarket_mainDataFieldset_legend}">
@@ -60,8 +58,7 @@
 										<h:column>
 											<p:inputText id="codeField"
 												label="#{i18nBundle.createMarket_codeField_label}"
-												value="#{marketModel.code}"
-												readonly="#{marketModel.readOnlyName}" size="45"
+												value="#{CMRMarketController.marketModel.code}"
 												maxlength="45" />
 										</h:column>
 										<h:column>
@@ -72,7 +69,7 @@
 										<h:column>
 											<p:inputText id="cityField"
 												label="#{i18nBundle.createMarket_cityField_label}"
-												value="#{marketModel.city}" size="45" maxlength="45" />
+												value="#{CMRMarketController.marketModel.city}" size="45" maxlength="45" />
 										</h:column>
 									</h:panelGrid>
 								</p:fieldset>

@@ -11,10 +11,11 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class EMFServletContextListener implements ServletContextListener {
+public class JsfServletContextListener implements ServletContextListener {
 
 	private static EntityManagerFactory emf;
 	private static Integer IntDaoSelected = null;
+	private static String urlWebservice = null;
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
@@ -29,14 +30,14 @@ public class EMFServletContextListener implements ServletContextListener {
 			if (IntDaoSelected == null) {
 				IntDaoSelected = Integer.parseInt(prop.getProperty("dao.type"));
 			}
+			if (urlWebservice == null) {
+				urlWebservice = prop.getProperty("url.webservice");
+			}
 		} catch (IOException | NumberFormatException e) {
 			// NumberFormatException is a RuntimeException and we don´t need to
-			// catch
-			// it but since we are using Java 7 we can catch several exc with |
+			// catch it but since we are using Java 7 we can catch several exc with |
 			e.printStackTrace();
 		}
-		// javax.enterprise.inject.spi.BeanManager
-
 	}
 
 	// We need an error control here
@@ -56,6 +57,10 @@ public class EMFServletContextListener implements ServletContextListener {
 
 	public static Integer getIntDaoSelected() {
 		return IntDaoSelected;
+	}
+	
+	public static String getUrlWebservice() {
+		return urlWebservice;
 	}
 
 }
