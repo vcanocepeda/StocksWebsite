@@ -1,3 +1,8 @@
+The first request to listMarkets needs the webservice active
+
+Very important to abstract a genericDao
+GenericDao<E, K>
+
 We have to change the way to get EntityManagerFactory
 through ServletContextListener.. We have a example here
 http://stackoverflow.com/questions/7862700/best-practice-to-get-entitymanagerfactory

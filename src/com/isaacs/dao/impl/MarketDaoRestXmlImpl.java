@@ -30,7 +30,7 @@ public class MarketDaoRestXmlImpl implements Serializable, MarketDao {
 	private static final long serialVersionUID = -288077746076465581L;
 	static final String url = JsfServletContextListener
 			.getUrlWebservice() + "/MarketService";
-	static Logger logger = Logger.getLogger(MarketDaoHibernateImpl.class);
+	static Logger logger = Logger.getLogger(MarketDaoRestXmlImpl.class);
 
 	@Override
 	public String save(Market market) {
@@ -97,7 +97,7 @@ public class MarketDaoRestXmlImpl implements Serializable, MarketDao {
 	}
 
 	@Override
-	public List<Market> getMarketList() {
+	public List<Market> getMarketList() { //throws Exception and catch it in CMR
 		// We don't have any client but since java-rs 2.0 we have one.. 
 		// We could use the popular Jersey too
 		// We have to configure marketService URL and add params in every method

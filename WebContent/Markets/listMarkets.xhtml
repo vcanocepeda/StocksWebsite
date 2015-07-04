@@ -33,8 +33,9 @@
 		</ui:define>
 
 		<ui:define name="centerContent">
-			<p:tabView id="tabsContainer" activeIndex="1" onTabShow="handleOnTabShow()" widgetVar="tabsContainer">
-				<p:ajax event="tabChange" />
+		<h:form>
+			<p:tabView id="tabsContainer" activeIndex="1">
+				<p:ajax event="tabChange" listener="#{loginController.tabIsChanged}" />
 				<p:tab id="homeTab" title="#{i18nBundle.homeTabTitle}">
 				</p:tab>
 				
@@ -44,7 +45,9 @@
 						styleClass="configurationLayout" style="min-height: 560px;">
 
 				<p:layoutUnit id="centerLayoutUnit" position="center">
-					<h:form>					
+					
+					<p:spacer height="12px" width="100%" />
+					<p:messages id="messagesDiv" showDetail="true" autoUpdate="true" closable="true" />			
 					<p:dataTable id="paginatedListMarkets" var="market"
 						value="#{CMRMarketController.marketModel.marketsList}" rows="10"
 						emptyMessage="#{i18nBundle.noRecordsFound}">
@@ -78,11 +81,11 @@
 						<p:spacer height="12px" width="100%" />
 						<p:panelGrid id="buttons" style="width: 50%; text-align: right;" columns="1">
 							<p:column>
-								<p:commandButton id="createMarketButton" value="Create Market"
+								<p:commandButton id="createMarketButton" value="#{i18nBundle.createMarket_button}"
 								action="#{CMRMarketController.navigateToCreateMarket}" icon="ui-icon-plus" ajax="false" />
 							</p:column>
 						</p:panelGrid>
-					</h:form>
+				
 
 				</p:layoutUnit>
 			</p:layout>
@@ -90,6 +93,7 @@
 		<p:tab id="stocksTab" title="#{i18nBundle.stocksTabTitle}"> </p:tab>
 		<p:tab id="pricesTab" title="#{i18nBundle.pricesTabTitle}"> </p:tab>
 		</p:tabView>
+			</h:form>
 		</ui:define>
 
 	</ui:composition>

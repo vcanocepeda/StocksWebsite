@@ -17,7 +17,7 @@ public class JsfServletContextListener implements ServletContextListener {
 	private static Integer IntDaoSelected = null;
 	private static String urlWebservice = null;
 
-	@Override
+	@Override//no haria falta en el contexto quizas si (generic no inicializa)
 	public void contextInitialized(ServletContextEvent event) {
 		Properties prop = new Properties();
 		InputStream in = getClass().getClassLoader().getResourceAsStream(

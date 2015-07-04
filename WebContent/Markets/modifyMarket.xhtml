@@ -93,10 +93,9 @@
                 </p:fieldset>
                                
                 <p:spacer height="12px" width="100%" />
-                <p:commandButton id="acceptButton"
-                                 value="#{i18nBundle.modifyMarket_acceptButton_value}"
-                                 icon="ui-icon-check" actionListener="#{CMRMarketController.modifyMarket}" 
-                                 ajax="true" />
+                <p:commandButton id="acceptButton" value="#{i18nBundle.modifyMarket_acceptButton_value}"
+								action="#{CMRMarketController.modifyMarket}" icon="ui-icon-check" ajax="false" />
+                
                 <p:spacer width="12px" />
                 <p:commandButton id="cancelButton"
                                  immediate="true"

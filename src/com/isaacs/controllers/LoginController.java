@@ -1,10 +1,16 @@
 package com.isaacs.controllers;
 
+import java.util.Map;
+
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.component.tabview.TabView;
+import org.primefaces.event.TabChangeEvent;
 
 import com.isaacs.dao.impl.UserDaoHibernateImpl;
 import com.isaacs.model.User;
@@ -44,13 +50,24 @@ public class LoginController extends AbstractController {
 		String username = getLoginModel().getUserName();
 		String password = getLoginModel().getPassword();
 		User user = this.userDao.findUser(username, password);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 		if (user != null) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 			session.setAttribute("login", user);
 			result = appendFacesRedirect("/Markets/listMarkets");
+		} else {
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login no correcto", "PrimeFaces Rocks."));
 		}
 		return result;
+	}
+	
+	//Create a Enum with the tabIndex and webPages
+	public void tabIsChanged(TabChangeEvent event) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		  Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+		  TabView tabView = (TabView) event.getComponent();
+		  String activeIndexValue = params.get(tabView.getClientId(context) + "_tabindex");
+		  // doesnt workreturn appendFacesRedirect(MARKETS_CREATE_VIEW);
 	}
 
 }

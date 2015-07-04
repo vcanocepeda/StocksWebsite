@@ -1,11 +1,8 @@
 package com.isaacs.controllers;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -16,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 
 public abstract class AbstractController implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 610705132125366738L;
 	//varia - start
 	public static final String QUESTION_MARK = "?";
 	public static final String AMPERSAND = "&";
@@ -33,7 +34,8 @@ public abstract class AbstractController implements Serializable {
 	public static final String MARKETS_MODIFY_VIEW = "/Markets/modifyMarket";
 	public static final String MARKETS_CREATE_VIEW = "/Markets/createMarket";
 	//views - end
-		
+	
+	public static final String ERROR_VIEW = "/dataError";
 	
 	//request parameters - start
 	public static final String CLEAR_SESSION_REQUEST_PARAMETER = "clearSession";
@@ -65,28 +67,28 @@ public abstract class AbstractController implements Serializable {
   }
 	
 		
-	protected void addFatalMessage(String messageKey) {
-		addMessage(FacesMessage.SEVERITY_FATAL, messageKey);
+	protected void addFatalMessage(String messageKey, Object... params) {
+		addMessage(FacesMessage.SEVERITY_FATAL, messageKey, params);
 	}
 	
-	protected void addErrorMessage(String messageKey) {
-		addMessage(FacesMessage.SEVERITY_ERROR, messageKey);
+	protected void addErrorMessage(String messageKey, Object... params) {
+		addMessage(FacesMessage.SEVERITY_ERROR, messageKey, params);
 	}
 	
-	protected void addWarningMessage(String messageKey) {
+	protected void addWarningMessage(String messageKey, Object... params) {
 		addMessage(FacesMessage.SEVERITY_WARN, messageKey);
 	}
 
-	protected void addInfoMessage(String messageKey) {
+	protected void addInfoMessage(String messageKey, Object... params) {
 		addMessage(FacesMessage.SEVERITY_INFO, messageKey);
 	}
-
-	protected void addMessage(FacesMessage.Severity severity, String messageKey) {
-		if(messageKey != null) {			
-			String message = getPropertyFromResourceBundle(messageKey);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, message, null));
-		}
-	}	
+	
+	protected void addMessage(FacesMessage.Severity severity, String messageKey, Object... params  ) {
+        if(messageKey != null) {
+        	String message = MessageFormat.format(getPropertyFromResourceBundle(messageKey), params);
+        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, message, null));
+        }        
+    }
 
 	protected void markFieldsAsInvalid(String messageKey, String... fieldIds) {
   	for(String fieldId : fieldIds) {

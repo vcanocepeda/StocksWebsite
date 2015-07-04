@@ -3,7 +3,6 @@ package com.isaacs.controllers;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
 //import javax.validation.constraints.NotNull;
