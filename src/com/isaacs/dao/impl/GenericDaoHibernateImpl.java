@@ -1,21 +1,20 @@
 package com.isaacs.dao.impl;
 
-import com.isaacs.dao.GenericDao;
-import com.isaacs.listeners.JsfServletContextListener;
-
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+
+import org.apache.log4j.Logger;
+
+import com.isaacs.dao.GenericDao;
+import com.isaacs.listeners.JsfServletContextListener;
 
 public abstract class GenericDaoHibernateImpl<E, K extends Serializable> implements GenericDao<E, K> {
 
 	protected static Logger logger = null;
-//	protected EntityManagerFactory entityManagerFactory;
 	protected EntityManager em;
     protected Class<? extends E> daoType;
     // we have DaoType here
@@ -25,11 +24,8 @@ public abstract class GenericDaoHibernateImpl<E, K extends Serializable> impleme
                 .getActualTypeArguments()[0];
 		logger = Logger.getLogger(daoType);
 		CreateEntityManager();
-		//this.em = JsfServletContextListener.createEntityManager();
 	}
     
-    // Maybe it shouldn't be abstract
-    //public abstract void CreateEntityManager();
     private void CreateEntityManager() {
     	this.em = JsfServletContextListener.createEntityManager();
     	logger.info("EntityManager created: em " + em.toString());
@@ -88,7 +84,7 @@ public abstract class GenericDaoHibernateImpl<E, K extends Serializable> impleme
 	public E find(K key) {
 		E entity = null;
 		try {
-			entity = (E) em.find(daoType, key);
+			entity = em.find(daoType, key);
 		} catch (NoResultException e) {
 
 		} 

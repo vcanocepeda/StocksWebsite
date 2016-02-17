@@ -1,9 +1,5 @@
 package com.isaacs.controllers;
 
-import com.isaacs.dao.GenericDao;
-import com.isaacs.model.Market;
-import com.isaacs.dao.factories.GenericDaoFactory;
-
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +9,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.component.tabview.TabView;
-import org.primefaces.event.TabChangeEvent;
-
+import com.isaacs.dao.GenericDao;
+import com.isaacs.dao.factories.GenericDaoFactory;
+import com.isaacs.model.Market;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
@@ -31,14 +27,14 @@ public class CMRMarketController extends AbstractController {
 	@Inject
 	private MarketModel marketModel;
 	
-//	private static MarketDao marketDao = null;
-	
+	//	private static MarketDao marketDao = null;
+	//  We create dynamic Daos depending on daoType
 	private static GenericDao<Market, String> marketDao = null;
 
 	public MarketModel getMarketModel() {
 		return this.marketModel;
 	}
-	
+	//
 	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void setMarketDao() {
